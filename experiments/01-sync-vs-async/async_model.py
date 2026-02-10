@@ -11,7 +11,7 @@ async def run(): # special async function that can use await
     end = time.perf_counter()
     print(f"ASYNC total time: {end - start:.2f}s")
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     asyncio.run(run()) # event loop
 
 # result is 0.1s
