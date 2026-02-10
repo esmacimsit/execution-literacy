@@ -20,7 +20,7 @@ async def cpu_async(): # async
         cpu_work(20_000_000)
 
     start = time.perf_counter()
-    await asyncio.gather(*(task() for _ in range(4)))
+    await asyncio.gather(*(task() for _ in range(40))) # async is not predictable it depends task load
     print("CPU ASYNC:", time.perf_counter() - start)
 
 
@@ -28,6 +28,10 @@ if __name__ == "__main__":
     cpu_sync()
     asyncio.run(cpu_async())
 
-# results:
+# results for 4:
 # CPU SYNC: ~2.3s
-# CPU ASYNC: ~2.1s
+# CPU ASYNC: ~2.1s 
+
+# results for 40:
+# CPU SYNC: ~2.3s
+# CPU ASYNC: ~21.3s 

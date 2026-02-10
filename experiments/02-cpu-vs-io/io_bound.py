@@ -24,3 +24,7 @@ async def io_async():
 if __name__ == "__main__":
     io_sync()
     asyncio.run(io_async())
+
+# results:
+# IO SYNC: 5.1s
+# IO ASYNC: 0.1s

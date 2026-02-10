@@ -20,6 +20,12 @@ Thinking hard about a problem — speed depends on brain power.
 
 ## IO-bound
 
+In IO-bound tests, asynchronous execution is used as the primary model to
+overlap waiting time. The synchronous version serves as a baseline where
+blocking calls accumulate latency. Threading is intentionally omitted to
+isolate the effects of event-loop scheduling without introducing extra
+synchronization overhead.
+
 **Definition:**  
 A task is **IO-bound** when its runtime is limited by **waiting for input/output**, not computation.
 
@@ -50,3 +56,5 @@ Many workers, but only **one pen** — only the worker holding the pen can write
 
 - CPU heavy work -> C,C++ (because of GIL), IO heavy work -> Python
 - CPU latency may vary between runs due to OS scheduling, background workloads, CPU frequency scaling, and cache effects.
+- async pays overhead per task
+- compute heavy work naturally works like sync
