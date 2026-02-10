@@ -11,10 +11,10 @@ def run():
     for _ in range(50): 
         t = threading.Thread(target=fake_io) # thread created but not started yet
         t.start() # runs thread
-        threads.append(t)
+        threads.append(t) # if you put join here it pretends like sync
 
     for t in threads:
-        t.join() # special thread method that waits
+        t.join() # special thread method that waits, blocks main thread
 
     end = time.perf_counter()
     print(f"THREAD total time: {end - start:.2f}s")

@@ -7,7 +7,7 @@ async def fake_io():
 async def run(): # special async function that can use await
     start = time.perf_counter()
     tasks = [fake_io() for _ in range(50)] # not running yet
-    await asyncio.gather(*tasks) # works like join
+    await asyncio.gather(*tasks) # works like join, event loop keeps running
     end = time.perf_counter()
     print(f"ASYNC total time: {end - start:.2f}s")
 

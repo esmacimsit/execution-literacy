@@ -23,9 +23,9 @@ Waiting time is reused instead of stacked.
 
 # Formulation
 
-SYNC   ≈ sum(wait_i)
-THREAD ≈ max(wait_i) + overhead
-ASYNC  ≈ max(wait_i) + smaller overhead
+- SYNC   ≈ sum(wait_i)
+- THREAD ≈ max(wait_i) + overhead
+- ASYNC  ≈ max(wait_i) + smaller overhead
 
 # Detecting Sync vs Thread vs Async
 
@@ -34,14 +34,14 @@ Indicators:
 - `async def`
 - `await`
 - `asyncio.run`
-- `asyncio.gather` / `create_task`
+- `asyncio.gather` (event loop)
 
 ## Thread
 Indicators:
 - `import threading`
 - `threading.Thread(...)`
 - `start()`
-- `join()` on thread objects
+- `join()` (OS scheduler)
 
 ## Sync
 Indicators:
@@ -49,3 +49,12 @@ Indicators:
 - No `threading`
 - Blocking calls (`time.sleep`, blocking IO)
 - Direct function calls in loops
+
+# Extra intuition
+
+`join` is like a salaried worker on fixed hours:
+after work starts, no new tasks are accepted until the shift ends.
+
+`gather` is like a freelancer:
+even while waiting on a task, they keep checking for new work.
+This constant readiness is the event loop.
