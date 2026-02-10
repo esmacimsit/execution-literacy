@@ -12,3 +12,5 @@ def run():
 
 if __name__ == "__main__": 
     run()
+
+# result is 5.2s
