@@ -9,7 +9,7 @@ threads = []
 start = time.perf_counter()
 
 for _ in range(TASKS):
-    t = threading.Thread(target=cpu_heavy, args=(N,))
+    t = threading.Thread(target=cpu_heavy, args=(N,)) # native os thread
     t.start()
     threads.append(t)
 
