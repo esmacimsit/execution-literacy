@@ -41,7 +41,21 @@ It will use one core while the others remain idle.
 
 True multi-core utilization requires multiprocessing, not threading.
 
+## Concurrency vs Parallelism
 
+**Concurrency** means multiple tasks are in progress during the same time period,
+but not necessarily executing at the exact same moment.
+
+**Parallelism** means multiple tasks are physically executing at the same time,
+typically on different CPU cores.
+
+Threading (CPU-bound):
+- Concurrency: yes
+- Parallelism: no (due to the GIL)
+
+Multiprocessing:
+- Concurrency: yes
+- Parallelism: yes (separate processes, separate GILs, multiple cores)
 
 ## Additional notes
 
