@@ -57,6 +57,70 @@ Multiprocessing:
 - Concurrency: yes
 - Parallelism: yes (separate processes, separate GILs, multiple cores)
 
+## Cooperative vs Preemptive Multitasking
+
+**Cooperative (Async):**
+Tasks voluntarily yield control using `await`.
+If there is no `await`, there is no concurrency.
+Execution continues until a suspension point is reached.
+
+**Preemptive (Threading):**
+The OS scheduler interrupts threads automatically.
+Threads can be paused at any time.
+This enables concurrency but introduces race conditions.
+
+## Multiprocessing: Windows vs macOS vs Linux
+
+**Linux**
+- Default start method: `fork`
+- Child process inherits parent memory space (copy-on-write)
+- Fast process startup
+- No need for full re-import of main module
+- Generally lower overhead
+
+**macOS**
+- Default start method: `spawn`
+- Child starts fresh Python interpreter
+- Main module is re-imported
+- Requires `if __name__ == "__main__"` guard
+- Higher startup overhead than Linux
+
+**Windows**
+- Only start method: `spawn`
+- New interpreter per process
+- Main module is re-executed
+- `if __name__ == "__main__"` mandatory
+- Highest startup overhead among the three
+
+### Practical Implication
+
+- `fork` → faster, lighter (Linux)
+- `spawn` → safer but slower (macOS, Windows)
+- CPU-bound multiprocessing scales best on Linux
+
+## Joining vs Gathering
+
+**Threading**
+- `thread.join()`
+- Blocks the main thread until the worker thread finishes.
+- OS-level preemptive scheduling.
+
+**Multiprocessing**
+- `process.join()`
+- Blocks the parent process until the child process exits.
+- True parallel execution across multiple cores.
+
+**Asyncio**
+- `await asyncio.gather(...)`
+- Suspends the current coroutine until all tasks complete.
+- Cooperative scheduling (no blocking of the event loop).
+
+### Key Difference
+
+- `join()` → blocking (thread/process level)
+- `gather()` → non-blocking suspension (event loop level)
+
 ## Additional notes
 
 - time.perf_counter() is reliable for benchmark tests unlike time.time()
+- In async code, `async` alone does not create concurrency; without an `await` suspension point, execution remains effectively synchronous.
