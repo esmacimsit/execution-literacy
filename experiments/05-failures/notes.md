@@ -71,7 +71,7 @@ Timeout ≠ cancellation.
 - Re-attempts a failed operation.
 - Stops early if success occurs.
 - Limited by `max_attempts`.
-- Sleeps between attempts.
+- May include delay between attempts.
 
 Used for:
 - Transient failures
@@ -79,7 +79,7 @@ Used for:
 
 Risk:
 - Blind retry can amplify load.
-- No backoff → retry storm.
+- Without backoff → retry storm.
 - Not suitable for permanent failures.
 
 Retry attempts recovery.
@@ -88,10 +88,13 @@ It does not guarantee stability.
 ---
 
 ### Backoff
-- Adds delay between retries.
-- Reduces pressure on failing systems.
+- Applied within retry logic.
+- Increases delay between attempts.
+- Reduces pressure on failing dependencies.
 - Often exponential.
 - May include jitter to prevent synchronized retry spikes.
+
+Backoff prevents retry amplification under load.
 
 ---
 
@@ -100,7 +103,7 @@ It does not guarantee stability.
 1. Unprotected → crash
 2. Protected → isolate
 3. Fallback → degrade
-4. Retry → attempt recovery
+4. Retry + Backoff → controlled recovery
 5. Circuit breaker → stop repeated failure
 6. Timeout → bound waiting time
 
