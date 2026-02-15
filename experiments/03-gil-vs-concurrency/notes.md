@@ -124,3 +124,4 @@ This enables concurrency but introduces race conditions.
 
 - time.perf_counter() is reliable for benchmark tests unlike time.time()
 - In async code, `async` alone does not create concurrency; without an `await` suspension point, execution remains effectively synchronous.
+- Optimal worker for multiprocessing is physical core number.
