@@ -1,0 +1,23 @@
+
+===== 2026-02-16 14:05:54 =====
+Script: experiments/03-gil-vs-concurrency/cpu_workload.py
+
+
+
+===== 2026-02-16 14:05:55 =====
+Script: experiments/03-gil-vs-concurrency/multiprocess.py
+
+PROCESS total time: 0.99s
+
+
+===== 2026-02-16 14:05:58 =====
+Script: experiments/03-gil-vs-concurrency/single_thread.py
+
+SYNC total time: 3.57s
+
+
+===== 2026-02-16 14:06:02 =====
+Script: experiments/03-gil-vs-concurrency/threaded.py
+
+THREAD total time: 3.34s
+
